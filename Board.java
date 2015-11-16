@@ -7,6 +7,9 @@ public class Zone(){
 
 public class Token(){
   private Color color;
+  public Token(Color color){
+    this.color = color;
+  }
   public void draw(Graphics g){
     //draw the tile here
   }
@@ -30,7 +33,56 @@ public class Board{
   }
   
   public void shuffle(){
-    //initialize tokens and randomize locations
+    int numR = 0, numY = 0, numB = 0, numG = 0;
+    int random, max;
+    eX = (size - 1) / 2;
+    eY = (size - 1) / 2;
+    max = (eX * (eY + 1));
+    
+    for(int i = 0; i < size; i++){
+      for(int j = 0; j < size; j++){
+        if((i == eX) && (i == j)){
+          grid[j][i] = Token(Color(GREY));
+        }else{
+          random = rand(0, 3) // make random = a random number0-3
+          switch(random){
+            case 0:
+              if(numR < max){
+                grid[j][i] = Token(Color(RED));
+                numR++;
+              }else{
+                j--;
+              }
+              break;
+            case 1:
+              if(numY < max){
+                grid[j][i] = Token(Color(YELLOW));
+                numY++;
+              }else{
+                j--;
+              }
+              break;
+            case 2:
+              if(numB < max){
+                grid[j][i] = Token(Color(BLUE));
+                numB++;
+              }else{
+                j--;
+              }
+              break;
+            case 3:
+              if(numG < max){
+                grid[j][i] = Token(Color(GREEN));
+                numG++;
+              }else{
+                j--;
+              }
+              break;
+          }
+        }
+      }
+    }
+    
   }
   
   public int getMoves(){
