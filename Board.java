@@ -29,52 +29,78 @@ public class Board{
     grid = new Token[size][size];
   }
   
+  public void shuffle(){
+    //initialize tokens and randomize locations
+  }
+  
   public int getMoves(){
     return moves;
   }
   
-  public void moveUp(){
-    Token temp;
-    if(eY > 0){
-      temp = grid[eX][eY - 1];
-      grid[eX][eY - 1] = grid[eX][eY];
-      grid[eX][eY] = temp;
-      eY--;
-      moves++;
-    }
-  }
-  
   public void moveDown(){
     Token temp;
-    if(eY < (size - 1)){
-      temp = grid[eX][eY + 1];
-      grid[eX][eY + 1] = grid[eX][eY];
-      grid[eX][eY] = temp;
-      eY++;
-      moves++;
+    if(eY > 0){
+      if(checkMoveLoc(eX, eY - 1, grid[eX][eY - 1].getColor()) && checkMoveLoc(eX, eY, grid[eX][eY - 1].getColor())){
+        temp = grid[eX][eY - 1];
+        grid[eX][eY - 1] = grid[eX][eY];
+        grid[eX][eY] = temp;
+        eY--;
+        moves++;
+      }
     }
   }
   
-  public void moveLeft(){
+  public void moveUp(){
     Token temp;
-    if(eX > 0){
-      temp = grid[eX - 1][eY];
-      grid[eX - 1][eY] = grid[eX][eY];
-      grid[eX][eY] = temp;
-      eX--;
-      moves++;
+    if(eY < (size - 1)){
+      if(checkMoveLoc(eX, eY + 1, grid[eX][eY + 1].getColor()) && checkMoveLoc(eX, eY, grid[eX][eY + 1].getColor())){
+        temp = grid[eX][eY + 1];
+        grid[eX][eY + 1] = grid[eX][eY];
+        grid[eX][eY] = temp;
+        eY++;
+        moves++;
+      }
     }
   }
   
   public void moveRight(){
     Token temp;
-    if(eX < (size - 1)){
-      temp = grid[eX + 1][eY];
-      grid[eX + 1][eY] = grid[eX][eY];
-      grid[eX][eY] = temp;
-      eX++;
+    if(eX > 0){
+      if(checkMoveLoc(eX - 1, eY, grid[eX - 1][eY].getColor()) && checkMoveLoc(eX, eY, grid[eX - 1][eY].getColor())){
+        temp = grid[eX - 1][eY];
+        grid[eX - 1][eY] = grid[eX][eY];
+        grid[eX][eY] = temp;
+        eX--;
       moves++;
+      }
     }
+  }
+  
+  public void moveLeft(){
+    Token temp;
+    if(eX < (size - 1)){
+      if(checkMoveLoc(eX + 1, eY, grid[eX + 1][eY].getColor()) && checkMoveLoc(eX, eY, grid[eX + 1][eY].getColor())){
+        temp = grid[eX + 1][eY];
+        grid[eX + 1][eY] = grid[eX][eY];
+        grid[eX][eY] = temp;
+        eX++;
+        moves++;
+      }
+    }
+  }
+  
+  public bool checkMoveLoc(int x, int y, Color color){
+    if(grid[x + 1][y].getColor() == color){
+      return true;
+    }else if(grid[x - 1][y].getColor() == color){
+      return true;
+    }else if(grid[x][y + 1].getColor() == color){
+      return true;
+    }else if(grid[x][y - 1].getColor() == color){
+      return true;
+    }
+    
+    return false;
   }
   
   public bool checkForWin(){
