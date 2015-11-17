@@ -30,7 +30,30 @@ public class Board{
 	}
 	
 	private void initZone(){
+		zone[0] = new Zone(Color.GREEN);
+		zone[1] = new Zone(Color.BLUE);
+		zone[2] = new Zone(Color.RED);
+		zone[3] = new Zone(Color.YELLOW);
 		
+		zone[0].fX = 0;
+		zone[0].lX = (size - 1) / 2;
+		zone[0].fY = 0;
+		zone[0].lY = ((size - 1) / 2) - 1;
+		
+		zone[1].fX = zone[0].lX + 1;
+		zone[1].lX = size - 1;
+		zone[1].fY = 0;
+		zone[1].lY = (size - 1) / 2;
+		
+		zone[2].fX = zone[0].lY + 1;
+		zone[2].lX = size - 1;
+		zone[2].fY = zone[1].lY + 1;
+		zone[2].lY = size - 1;
+		
+		zone[3].fX = 0;
+		zone[3].lX = zone[0].lY;
+		zone[3].fY = zone[0].lY + 1;
+		zone[3].lY = size - 1;
 	}
 	
 	public void draw(Graphics g){
@@ -41,7 +64,8 @@ public class Board{
 		g.drawString("Moves: " + moves, 5, HEADERSIZE - 5);
 		
 		for(int k = 0; k < 4; k++){
-			//zone[k].draw(g);
+			g.setColor(zone[k].getColor());
+			g.fillRect(zone[k].fX * Token.TILESIZE, (zone[k].fY * Token.TILESIZE) + HEADERSIZE, (zone[k].lX - zone[k].fX + 1) * Token.TILESIZE, (zone[k].lY - zone[k].fY + 1) * Token.TILESIZE);
 		}
 		
 		for(int i = 0; i < size; i++){
@@ -176,10 +200,23 @@ public class Board{
   }
   
   public boolean checkForWin(){
-    //check individual zones for color correctness
-    //if all is correct return true
+    for(int i = 0; i <= 3; i++){
+    	
+    	for(int j = zone[i].fY; j <= zone[i].lY; j++){
+    		
+    		for(int k = zone[i].fX; k <= zone[i].lX; k++){
+        		
+        		if(grid[k][j].getColor() != zone[i].getColor()){
+        			return false;
+        		}
+        		
+        	}
+    		
+    	}
+    	
+    }
 	  
-	  return false;
+	  return true;
   }
 
   public void destroyBoard(){

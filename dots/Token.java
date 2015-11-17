@@ -17,6 +17,8 @@ public class Token{
 	    if(color != Color.GRAY){
 		  g.setColor(color);
 		  g.fillOval(x + 5, y + 5, TILESIZE - 10, TILESIZE - 10);
+		  g.setColor(Color.BLACK);
+		  g.drawOval(x + 5, y + 5, TILESIZE - 10, TILESIZE - 10);
 	    }
 	  }
 	  
