@@ -70,10 +70,18 @@ public class dotGame implements Game{
 			if(board.checkForWin()){
 				GS = GameState.WIN;
 			}
+			
+			if(engine.getKey((int)'n') == 1){
+				engine.unflagKey((int)'n');
+				GS = GameState.SETUP;
+			}
 			break;
 			
 		case WIN:
-			
+			if(engine.getKey((int)'n') == 1){
+				engine.unflagKey((int)'n');
+				GS = GameState.SETUP;
+			}
 			break;
 			
 		default:
@@ -87,7 +95,7 @@ public class dotGame implements Game{
 		switch (GS) {
 		
 		case SETUP:
-			board.draw(g);
+			
 			break;
 			
 		case RUNNING:
@@ -101,6 +109,8 @@ public class dotGame implements Game{
 			
 			g.setFont(new Font("SansSerif", Font.PLAIN, 60));
 			g.drawString("Moves: " + board.getMoves(), 10, 30);
+			
+			g.drawString("Press 'n' for a new game", 10, 50);
 			break;
 			
 		default:

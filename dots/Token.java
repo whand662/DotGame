@@ -13,8 +13,11 @@ public class Token{
 	    this.color = color;
 	  }
 	  
-	  public void draw(Graphics g){
-	    //draw the tile here
+	  public void draw(Graphics g, int x, int y){
+	    if(color != Color.GRAY){
+		  g.setColor(color);
+		  g.fillOval(x + 5, y + 5, TILESIZE - 10, TILESIZE - 10);
+	    }
 	  }
 	  
 	  public Color getColor(){
