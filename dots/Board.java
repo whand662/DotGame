@@ -1,22 +1,9 @@
-public class Zone(){
-  //for target zones
-  public void draw(Graphics g){
-    //draw zone here
-  }
-}
+package dots;
+import java.awt.Color;
+import java.util.Random;
 
-public class Token(){
-  private Color color;
-  public Token(Color color){
-    this.color = color;
-  }
-  public void draw(Graphics g){
-    //draw the tile here
-  }
-  public Color getColor(){
-    return color;
-  }
-}
+import dots.Token;
+import dots.Zone;
 
 public class Board{
 
@@ -33,8 +20,11 @@ public class Board{
   }
   
   public void shuffle(){
+	Random rand;
     int numR = 0, numY = 0, numB = 0, numG = 0;
     int random, max;
+    
+    rand = new Random();
     eX = (size - 1) / 2;
     eY = (size - 1) / 2;
     max = (eX * (eY + 1));
@@ -42,13 +32,13 @@ public class Board{
     for(int i = 0; i < size; i++){
       for(int j = 0; j < size; j++){
         if((i == eX) && (i == j)){
-          grid[j][i] = Token(Color(GREY));
+          grid[j][i] = new Token(Color.GRAY);
         }else{
-          random = rand(0, 3) // make random = a random number0-3
+          random = rand.nextInt(4); // make random = a random number0-3
           switch(random){
             case 0:
               if(numR < max){
-                grid[j][i] = Token(Color(RED));
+                grid[j][i] = new Token(Color.RED);
                 numR++;
               }else{
                 j--;
@@ -56,7 +46,7 @@ public class Board{
               break;
             case 1:
               if(numY < max){
-                grid[j][i] = Token(Color(YELLOW));
+                grid[j][i] = new Token(Color.YELLOW);
                 numY++;
               }else{
                 j--;
@@ -64,7 +54,7 @@ public class Board{
               break;
             case 2:
               if(numB < max){
-                grid[j][i] = Token(Color(BLUE));
+                grid[j][i] = new Token(Color.BLUE);
                 numB++;
               }else{
                 j--;
@@ -72,7 +62,7 @@ public class Board{
               break;
             case 3:
               if(numG < max){
-                grid[j][i] = Token(Color(GREEN));
+                grid[j][i] = new Token(Color.GREEN);
                 numG++;
               }else{
                 j--;
@@ -141,7 +131,7 @@ public class Board{
     }
   }
   
-  public bool checkMoveLoc(int x, int y, Color color){
+  public boolean checkMoveLoc(int x, int y, Color color){
     if(grid[x + 1][y].getColor() == color){
       return true;
     }else if(grid[x - 1][y].getColor() == color){
@@ -155,11 +145,13 @@ public class Board{
     return false;
   }
   
-  public bool checkForWin(){
+  public boolean checkForWin(){
     //check individual zones for color correctness
     //if all is correct return true
+	  
+	  return false;
   }
-  
+
   public void destroyBoard(){
     //free grid from memory here
   }
