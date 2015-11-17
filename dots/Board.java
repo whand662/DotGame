@@ -1,5 +1,6 @@
 package dots;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.Random;
 
 import dots.Token;
@@ -7,16 +8,33 @@ import dots.Zone;
 
 public class Board{
 
-  private int size, moves;
-  private int eX, eY;
-  private Token[][] grid;
+	public static final int HEADERSIZE = 30;
+	private int size, moves;
+	private int eX, eY;
+	private Token[][] grid;
 
-  public Board(int size){
-    moves = 0;
-    this.size = size;
-    eX = (size - 1) / 2;
-    eY = (size - 1) / 2;
-    grid = new Token[size][size];
+	public Board(int size){
+		moves = 0;
+		this.size = size;
+		eX = (size - 1) / 2;
+    	eY = (size - 1) / 2;
+    	grid = new Token[size][size];
+	}
+	
+	public void draw(Graphics g){
+		
+	}
+  
+  public int getSize(){
+	  return size;
+  }
+  
+  public int getWidth(){
+	  return size * Token.TILESIZE;
+  }
+  
+  public int getHeight(){
+	  return (size * Token.TILESIZE) + HEADERSIZE;
   }
   
   public void shuffle(){

@@ -5,6 +5,8 @@ import java.awt.Graphics;
 
 public class Token{
 	
+	public static final int TILESIZE = 60;
+	
 	  private Color color;
 	  
 	  public Token(Color color){
